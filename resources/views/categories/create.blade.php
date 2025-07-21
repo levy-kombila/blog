@@ -1,16 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Créer une catégorie</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Créer une nouvelle catégorie</h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
-        <label for="titre">Titre :</label>
-        <input type="text" name="titre" id="titre"><br>
 
-        <label for="contenu">Contenu :</label>
-        <textarea name="contenu" id="contenu"></textarea><br>
+        <div class="mb-3">
+            <label for="titre" class="form-label">Titre</label>
+            <input type="text" name="titre" id="titre" class="form-control" value="{{ old('titre') }}" required>
+        </div>
 
-        <button type="submit">Créer</button>
+        <div class="mb-3">
+            <label for="contenu" class="form-label">Contenu</label>
+            <textarea name="contenu" id="contenu" class="form-control" rows="5" required>{{ old('contenu') }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Créer</button>
     </form>
+</div>
 @endsection
